@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>注册</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<div class="regist">
+		    <form action="regist" method="POST">
+		        <table>
+		        	<tr>
+		        		<td>账号：</td>
+		        		<td><input type="text" name="account"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>密码：</td>
+		        		<td><input type="text" name="userPass"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>确认密码：</td>
+		        		<td><input type="text"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>姓名：</td>
+		        		<td><input type="text" name="name"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>年龄：</td>
+		        		<td><input type="text" name="age"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>昵称：</td>
+		        		<td><input type="text" name="nick"></td>
+		        	</tr>
+		        	<tr>
+		        		<td>性别：</td>
+		        		<td>
+		        			<select name="sex"> 
+                                <option value="未知">未知</option> 
+                                <option value="男">男</option> 
+                                <option value="女">女</option>
+                            </select> 
+		        		</td>
+		        	</tr>
+		        	<tr>
+		        		<tr>
+		        			<td colspan="2"><input type="submit" name="userLogin" value="注册"></td>
+		        		</tr>
+		        	</tr>
+		        </table>
+		    </form>
+		</div>
+	</body>
+</html>

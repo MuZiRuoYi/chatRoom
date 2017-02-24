@@ -1,0 +1,48 @@
+extends ../layout
+block content
+    .chat-view
+        .chatRoom
+            h2 所建聊天室
+            table
+                each item in myChatRoom
+                    tr
+                        td 
+                            span.chatName #{item.name}
+                            span input.chatId(type='hidden', value='#{item.id}')
+                        td 
+                            input.dismiss(type='button', value='解散')
+                p.addChatRoom 新建聊天室
+            h2 参与聊天室
+            table
+                each item in inChatRoom
+                    tr
+                        td  
+                            span.chatName #{item.name}
+                            span input.chatId(type='hidden', value='#{item.id}')
+                        td 
+                            input.exit(type='button', value='退出')
+        .chatCon
+            h2 聊天记录
+            input.userAccount(type='hidden', value='#{userAccound}')
+            .chatLog
+        .chat 
+            //-(action='send/#{userAccound}', method='POST')
+            textarea(rows='4')
+            input(type='submit', value='发送')
+        .clear
+        table.chatRoomMessage
+            tr.newchatRoomName
+                td 
+                    span 聊天室名字：
+                td 
+                    input(type='text')
+            tr.firstUser
+                td
+                td 
+                    input.needUserAccount(type='text' value='#{userAccound}' readonly="readonly")
+                    input.addUser(type='button' value='+')
+            tr.newChatRoomUser
+                td 
+                td 
+                    input.okAddChatRoom(type='button' value='创建')
+                    input.cancleAdd(type='button' value='取消')

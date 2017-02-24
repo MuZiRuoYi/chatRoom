@@ -1,0 +1,205 @@
+﻿-----------------------数据库使用--------------------------
+-- 显示编码
+show variables like 'character%';
+
+-- 进入数据库
+mysql -h localhost -u root -p
+
+-- 显示所有数据库
+show databases;
+
+mysql_qeury('set names gbk');
+
+------------------chatroomsystem数据库---------------------
+
+-- 建立数据库并设置编码
+create database chatroomsystem default character set utf8 collate utf8_general_ci;
+
+-- chatroomsystem数据库：建立
+create database chatroomsystem;
+create schema chatroomsystem;
+
+-- chatroomsystem数据库：删除
+drop schema chatroomsystem;
+
+-- 使用数据库chatroomsystem
+use chatroomsystem;
+
+-------------------------user表----------------
+-- user表：新建并控制编码
+create table user 
+(
+ u_account char(10) primary key, -- 账号
+ u_name char(20),  -- 姓名
+ u_sex char(4) check(u_sex in ('未知','男','女')), -- 性别
+ u_age smallint, -- 年龄
+ u_pass char(16),  -- 密码
+ u_nick char(20),  -- 昵称
+ u_regist_time timestamp not null default current_timestamp  -- 创建用户时间
+); -- engine=innodb default charset = utf8;
+
+-- user表：插入数据
+insert into user 
+( u_account,  u_name,  u_sex,  u_age,  u_pass,  u_nick) 
+values 
+('1234567', 'Nick',  '男',  21,  '1234567',  'Tomin');
+
+insert into user 
+( u_account,  u_name,  u_sex,  u_age,  u_pass,  u_nick) 
+values 
+('1234567', 'Alice',  '女',  19,  '1234568',  'Tomin');
+
+insert into user 
+( u_account,  u_name,  u_sex,  u_age,  u_pass,  u_nick) 
+values 
+('1234567', 'Tom',  '未知',  23,  '1234569',  'Tomin');
+
+insert into user 
+( u_account,  u_name,  u_sex,  u_age,  u_pass,  u_nick) 
+values 
+('1234567', 'Koij',  '男',  22,  '1234570',  'Tomin');
+
+delete from user where 1 = 1;
+
+
+-- user表：删除
+drop table user;
+
+alter table user drop column u_sex;
+
+-- default '未知'
+alter table user add u_sex char(4) not null check(u_sex in ('未知','男','女'));
+
+insert into user (u_account, u_name, u_age, u_pass, u_nick) values ('1234567', 'Nick', 21, '1234567', 'Tomin');
+
+---------------------chat_room表---------------
+
+-- 聊天室
+create table chat_room 
+(
+ r_id int primary key auto_increment, -- ID
+ r_name char(30) not null,  -- 聊天室名字
+ r_creat_user char(10) not null,  -- 创建人账号
+ r_creat_time timestamp not null default current_timestamp,  -- 创建时间
+ foreign key(r_creat_user) references user(u_account)
+) engine=innodb default charset = utf8;
+
+insert into chat_room
+(r_name, r_creat_user) 
+values
+('char', '1234567');
+
+insert into chat_room
+(r_name, r_creat_user) 
+values
+('hehe', '1234567');
+
+----------------------chat_user表---------------
+
+-- 用户-聊天室关系
+create table chat_user
+(
+ c_id int primary key auto_increment,  -- 关系编号
+ r_id int not null,  -- 聊天室ID
+ u_account char(10) not null,  -- 用户账号
+ foreign key(u_account) references user(u_account),
+ foreign key(r_id) references chat_room(r_id)
+) engine=innodb default charset = utf8;
+
+insert into chat_user(r_id, u_account) values (3,'1234567');
+insert into chat_user(r_id, u_account) values (2,'1234567');
+insert into chat_user(r_id, u_account) values (2,'1234568');
+
+----------------------message表----------------
+
+-- 消息表
+create table message
+(
+ m_id int primary key auto_increment,  -- 消息ID
+ m_content varchar(200), -- 消息内容
+ m_time timestamp not null default current_timestamp,  -- 消失发送时间
+ r_id int not null, -- 聊天室ID
+ u_account char(10) not null,  -- 发送人账号
+ -- m_chat int not null,
+ -- foreign key(m_chat) references chat_user(c_id),
+ foreign key(r_id) references chat_room(r_id),
+ foreign key(u_account) references user(u_account)
+) engine=innodb default charset = utf8;
+
+drop table message cascade;
+
+insert into message(m_content, r_id, u_account) values('jihhjibvhyvbgb', 4, '1234567');
+
+-------------------mess_state表-----------------
+
+-- 消息状态表
+create table unread_message
+(
+ s_id int primary key auto_increment,  -- ID
+ m_id int,-- 消息ID
+ u_account char(10),  -- 用户账号
+ r_id int not null,  -- 聊天室编号
+ -- state char(1) not null default '0' check(u_sex in ('0','1')), -- 0：未读；1：已读
+ foreign key(m_id) references message(m_id),
+ foreign key(u_account) references user(u_account),
+ foreign key(r_id) references chat_room(r_id)
+) engine=innodb default charset = utf8;
+
+insert into mess_state(m_id, u_account, r_id) values(1, '1234567', 1);
+insert into mess_state(m_id, u_account, r_id) values(2, '1234567', 2);
+insert into mess_state(m_id, u_account, r_id) values(3, '1234567', 3);
+insert into mess_state(m_id, u_account, r_id) values(4, '1234567', 2);
+insert into mess_state(m_id, u_account, r_id) values(4, '1234567', 1);
+
+alter table mess_state add r_id int not null;
+alter table mess_state add constraint foreign key(r_id) references chat_room(r_id);
+
+-------------------------------数据库使用--------------------------------------
+
+-- 得到u_account对应chat_room的所有未读消息数目
+select r_id, count(s_id) 
+from 
+mess_state 
+where 
+u_account = '1234567' and state = 0 group by r_id;
+
+select message.m_content, user.u_account, u_nick
+from user, chat_user, message, mess_state
+where user.u_account = chat_user.u_account 
+      and chat_user.c_id = message.m_chat
+      and mess_state.u_account = '1234567'
+      and mess_state.r_id = 1
+      and mess_state.state = 0;
+
+-- 获取某用户所拥有的聊天室信息
+select r_id, r_name from chat_room where r_creat_user = '1234567';
+
+-- 获取用户所在但不是所建聊天室
+select chat_room.r_id, chat_room.r_name 
+from chat_user, chat_room
+where chat_user.r_id = chat_room.r_id 
+  and chat_room.r_creat_user <> '1234567'
+  and chat_user.u_account = '1234567'; 
+
+select m_content, m_time, message.u_account, u_name, u_nick
+from message, user
+where message.u_account = user.u_account and r_id = '1';
+
+select u_account from chat_user where r_id = 1;
+
+delete from message where r_id = '17' and u_account = '1234567';
+insert into message (r_id, u_account) values('17', '1234567');
+
+
+
+
+
+
+
+
+
+
+
+
+
+

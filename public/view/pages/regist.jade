@@ -1,0 +1,31 @@
+extends ../layout
+block content
+    div
+      form(action="regist", method="POST")
+        p
+          | &#36134;&#21495;&#65306;
+          input(type="text", name="account")
+        p
+          | &#23494;&#30721;&#65306;
+          input(type="text", name="userPass")
+        p
+          | &#30830;&#35748;&#23494;&#30721;&#65306;
+          input(type="text")
+        p
+          | &#22995;&#21517;&#65306;
+          input(type="text", name="name")
+        p
+          | &#24180;&#40836;&#65306;
+          input(type="text", name="age")
+        p
+          | &#26165;&#31216;&#65306;
+          input(type="text", name="nick")
+        p
+          | &#24615;&#21035;&#65306;
+          // input type="text" name="sex"
+          select(name="sex")
+            option(value="未知") &#26410;&#30693;
+            option(value="男") &#30007;
+            option(value="女") &#22899;
+        p
+          input(type="submit", name="userLogin", value="注册")

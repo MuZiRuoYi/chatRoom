@@ -1,0 +1,195 @@
+/* 全局样式 */
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Microsoft Yahei';
+}
+img {
+	border: none;
+}
+body {
+	background: #f4f4f4;
+}
+a {
+	text-decoration: none;
+}
+.clear {
+	width: 0px;
+	height: 0px;
+	display: block;
+	clear: both;
+}
+
+/* 登陆 */
+.login {
+	width: 222px;
+    height: 98px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -49px;
+    margin-left: -111px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 16px 24px;
+    background: #fff;
+}
+.login p {
+	line-height: 2em;
+	font-size: 14px;
+}
+input[type=button],
+input[type=submit] {
+	border: none;
+    background-color: #8CCCE2;
+    border-radius: 2px;
+    color: #fff;
+    padding: 4px 8px;
+    margin-top: 16px;
+}
+.login .uncount {
+	font-size: 12px;
+	display: inline-block;
+    float: right;
+    text-align: right;
+    margin-top: 16px;
+}
+
+/* 头部 */
+.header {
+	font-size: 22px;
+	line-height: 2em;
+	color: #EEE;
+	text-align: center;
+	background: #6161F5;
+}
+/* 聊天界面 */
+.chat-view {
+	font-size: 14px;
+}
+/* 聊天内容 */
+.chatCon {
+	width: 63%;
+	float: right;
+	margin: 4%;
+	border: 1px solid #DDD;
+	border-radius: 2px;
+	height: 250px;
+	overflow: auto;
+	background-color: #fff;
+}
+.chatRoom h2,
+.chatCon h2 {
+	font-size: 16px;
+	color: green;
+	width: 100%;
+	text-align: center;
+	line-height: 2em;
+	background: #C2C2F9;
+}
+.chatLog {
+	padding: 16px 24px;
+}
+/* 聊天室 */
+.chatRoom {
+	float: left;
+	height: 492px;
+	overflow: auto;
+	width: 20%;
+	border: solid #DDD;
+	border-width: 1px 1px 1px 1px;
+	border-radius: 2px;
+	margin: 4%;
+	margin-bottom: 2%;
+	background-color: #fff;
+}
+.chatRoom table {
+	width: 100%;
+	border: none;
+}
+.chatRoom table td {
+	text-align: center;
+}
+.chatRoom table td:nth-child(even) {
+	width: 45px;
+}
+.addChatRoom {
+	line-height: 2.5em;
+	text-align: center;
+	cursor: pointer;
+	background: #DDD;
+}
+.chatRoomMessage {
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	min-height: 120px;
+	padding: 10px;
+	background: #DDD;
+	display: none;
+}
+.chatRoomName {
+	cursor: pointer;
+	line-height: 2em;
+}
+.isChating {
+	background: #DDDDDD;
+}
+.red {
+	color: red;
+	position: relative;
+	display: inline-block;
+	font-size: 10px;
+	bottom: 8px;
+}
+/* 聊天 */
+.chat {
+	width: 63%;
+	float: right;
+	margin: 0 4%;
+}
+.chat textarea{
+	width: 97%;
+	height: 120px;
+	border-color: #ddd;
+    border-radius: 2px;
+    padding: 8px 1.5%;
+}
+.chat input{
+	float: right;
+}
+/* 注册 */
+.regist {
+	font-size: 12px;
+	width: 272px;
+	height: 256px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -128px;
+	margin-left: -136px;
+	border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 16px 24px;
+    background: #fff;
+}
+.regist table td {
+	padding: 4px 8px;
+}
+.regist tr td:nth-child(1) {
+	text-align: right;
+}
+.regist tr td:nth-child(2) {
+	text-align: left;
+}
+
+/* 页脚 */
+.footer {
+	bottom: 0;
+	height: 3em;
+	line-height: 3em;
+	color: #ddd;
+	text-align: center;
+	background: #6161F5;
+	width: 100%;
+}
